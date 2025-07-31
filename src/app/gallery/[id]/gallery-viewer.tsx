@@ -3,7 +3,11 @@
 import { AnimateView } from "@/app/AnimateView";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { startTransition, unstable_addTransitionType, useEffect } from "react";
+import {
+  unstable_addTransitionType as addTransitionType,
+  startTransition,
+  useEffect,
+} from "react";
 import styles from "./gallery-viewer.module.css";
 
 type GalleryViewerProps = {
@@ -24,21 +28,21 @@ export default function GalleryViewer({
   // Navigation functions with transition types
   const navigatePrev = () => {
     startTransition(() => {
-      unstable_addTransitionType("prev");
+      addTransitionType("prev");
       router.push(`/gallery/${prevId}`);
     });
   };
 
   const navigateNext = () => {
     startTransition(() => {
-      unstable_addTransitionType("next");
+      addTransitionType("next");
       router.push(`/gallery/${nextId}`);
     });
   };
 
   const navigateBack = () => {
     startTransition(() => {
-      unstable_addTransitionType("back");
+      addTransitionType("back");
       router.push("/gallery");
     });
   };
