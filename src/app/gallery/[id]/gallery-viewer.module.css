@@ -1,0 +1,141 @@
+.galleryViewer {
+  min-height: 100vh;
+  background: var(--black);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.floatingBackButton {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  color: var(--text);
+  font-weight: 480;
+  font-variation-settings: "opsz" 30, "wght" 480;
+  font-size: 15px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  background: var(--layer-transparent);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  z-index: 20;
+}
+
+.floatingBackButton:hover {
+  background-color: var(--layer);
+  border-color: var(--accent-transparent);
+  color: var(--accent);
+}
+
+.imageContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 20px;
+  min-height: 0; /* Allows flex item to shrink */
+  /* Constrain to actual viewport height */
+  height: 100vh; /* Full viewport height now */
+  max-height: 100vh;
+}
+
+.imageWrapper {
+  position: relative;
+  /* Create a square constraint that fits within viewport */
+  width: min(calc(100vw - 40px), calc(100vh - 40px));
+  height: min(calc(100vw - 40px), calc(100vh - 40px));
+  max-width: calc(100vw - 40px);
+  max-height: calc(100vh - 40px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainImage {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  position: relative !important;
+  border-radius: 4px;
+}
+
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--layer-transparent);
+  backdrop-filter: blur(12px);
+  color: var(--text);
+  border: 1px solid var(--border);
+  font-size: 3rem;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 5;
+  user-select: none;
+  border-radius: 12px;
+  font-weight: 300;
+}
+
+.navButton:hover {
+  background: var(--layer);
+  border-color: var(--accent-transparent);
+  color: var(--accent);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.navPrev {
+  left: 1rem;
+}
+
+.navNext {
+  right: 1rem;
+}
+
+@media (max-width: 768px) {
+  .floatingBackButton {
+    top: 1rem;
+    left: 1rem;
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  .imageContainer {
+    padding: 20px;
+    height: 100vh; /* Full viewport height on mobile */
+    max-height: 100vh;
+  }
+
+  .imageWrapper {
+    /* For mobile, use smaller constraint */
+    width: min(calc(100vw - 40px), calc(100vh - 40px));
+    height: min(calc(100vw - 40px), calc(100vh - 40px));
+    max-width: calc(100vw - 40px);
+    max-height: calc(100vh - 40px);
+  }
+
+  .navButton {
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .navPrev {
+    left: 0.5rem;
+  }
+
+  .navNext {
+    right: 0.5rem;
+  }
+}
