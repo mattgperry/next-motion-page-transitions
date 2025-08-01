@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   unstable_addTransitionType as addTransitionType,
   startTransition,
@@ -10,16 +10,16 @@ import styles from "./gallery-viewer.module.css";
 
 type GalleryLayoutProps = {
   children: React.ReactNode;
+  currentId: number;
   totalImages: number;
 };
 
 export default function GalleryLayout({
   children,
+  currentId,
   totalImages,
 }: GalleryLayoutProps) {
   const router = useRouter();
-  const params = useParams();
-  const currentId = parseInt(params.id as string);
 
   // Calculate previous and next IDs with wrap-around
   const prevId = currentId === 1 ? totalImages : currentId - 1;
@@ -43,6 +43,7 @@ export default function GalleryLayout({
   const navigateBack = () => {
     startTransition(() => {
       addTransitionType("back");
+      addTransitionType("from-" + currentId);
       router.push("/gallery");
     });
   };

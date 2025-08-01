@@ -43,7 +43,7 @@ export function createViewAnimation(
 
       const { transition: typeTransition, ...values } =
         typeof props[animationType] === "function"
-          ? props[animationType](types)
+          ? props[animationType](types) || {}
           : props[animationType] || {};
 
       console.log(props);
@@ -76,11 +76,15 @@ export function createViewAnimation(
         animationOptions.duration!
       ) as string;
 
-      effect.updateTiming({
-        delay: secondsToMilliseconds(animationOptions.delay ?? 0),
-        duration: animationOptions.duration,
-        easing,
-      });
+      if (animationOptions.duration) {
+        effect.updateTiming({
+          delay: secondsToMilliseconds(animationOptions.delay ?? 0),
+          duration: animationOptions.duration,
+          easing,
+        });
+      } else {
+        viewAnimation.finish();
+      }
 
       layerAnimations.push(new NativeAnimationWrapper(viewAnimation));
     }

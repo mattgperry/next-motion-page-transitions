@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { AnimateView } from "../AnimateView";
@@ -12,7 +14,15 @@ export default function GalleryPage() {
       <h1 className={styles.galleryTitle}>Gallery</h1>
       <div className={styles.galleryGrid}>
         {imageIds.map((id) => (
-          <AnimateView key={id} name={`image-${id}`}>
+          <AnimateView
+            key={id}
+            name={`image-${id}`}
+            share={(types) =>
+              types.includes("back") && !types.includes("from-" + id)
+                ? { transition: { duration: 0 } }
+                : {}
+            }
+          >
             <Link
               key={id}
               href={`/gallery/${id}`}

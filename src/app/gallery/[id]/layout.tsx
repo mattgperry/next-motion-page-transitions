@@ -1,3 +1,4 @@
+import { AnimateView } from "@/app/AnimateView";
 import { notFound } from "next/navigation";
 import GalleryLayout from "./gallery-layout";
 
@@ -17,5 +18,11 @@ export default async function GalleryViewerLayout({ children, params }: Props) {
     notFound();
   }
 
-  return <GalleryLayout totalImages={TOTAL_IMAGES}>{children}</GalleryLayout>;
+  return (
+    <AnimateView transition={{ ease: "linear", duration: 0.5 }}>
+      <GalleryLayout currentId={currentId} totalImages={TOTAL_IMAGES}>
+        {children}
+      </GalleryLayout>
+    </AnimateView>
+  );
 }

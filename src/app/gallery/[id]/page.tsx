@@ -56,7 +56,13 @@ export default async function GalleryItemPage({ params }: Props) {
 
   const aspectRatio = IMAGE_ASPECT_RATIOS[currentId];
 
-  return <FullScreenImage currentId={currentId} aspectRatio={aspectRatio} />;
+  return (
+    <FullScreenImage
+      currentId={currentId}
+      aspectRatio={aspectRatio}
+      totalImages={TOTAL_IMAGES}
+    />
+  );
 }
 
 // Generate static params for better performance
