@@ -1,8 +1,6 @@
 "use client";
 
-import { AnimateView } from "@/app/AnimateView";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import {
   unstable_addTransitionType as addTransitionType,
   startTransition,
@@ -10,16 +8,18 @@ import {
 } from "react";
 import styles from "./gallery-viewer.module.css";
 
-type GalleryViewerProps = {
-  currentId: number;
+type GalleryLayoutProps = {
+  children: React.ReactNode;
   totalImages: number;
 };
 
-export default function GalleryViewer({
-  currentId,
+export default function GalleryLayout({
+  children,
   totalImages,
-}: GalleryViewerProps) {
+}: GalleryLayoutProps) {
   const router = useRouter();
+  const params = useParams();
+  const currentId = parseInt(params.id as string);
 
   // Calculate previous and next IDs with wrap-around
   const prevId = currentId === 1 ? totalImages : currentId - 1;
@@ -80,9 +80,7 @@ export default function GalleryViewer({
           &#8249;
         </button>
 
-        <div className={styles.imageWrapper}>
-          <MainImage currentId={currentId} />
-        </div>
+        <div className={styles.imageWrapper}>{children}</div>
 
         <button
           onClick={navigateNext}
@@ -93,37 +91,5 @@ export default function GalleryViewer({
         </button>
       </div>
     </div>
-  );
-}
-
-const enter = (types: string[]) => {
-  console.log(types);
-  return {
-    transform: [
-      `translateX(${types.includes("prev") ? "-" : ""}100%)`,
-      "translateY(0)",
-    ],
-  };
-};
-
-const exit = (types: string[]) => {
-  console.log(types);
-  return {
-    transform: `translateX(${types.includes("prev") ? "" : "-"}100%)`,
-  };
-};
-
-function MainImage({ currentId }: { currentId: number }) {
-  return (
-    <AnimateView name={`image-${currentId}`} enter={enter} exit={exit}>
-      <Image
-        src={`/gallery/image-${currentId}.jpg`}
-        alt={`Gallery image ${currentId}`}
-        fill
-        className={styles.mainImage}
-        priority
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-      />
-    </AnimateView>
   );
 }

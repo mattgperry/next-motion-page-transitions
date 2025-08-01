@@ -21,7 +21,6 @@ export function createViewAnimation(
   commitProps: AnimateViewProps
 ) {
   return ({ name }: ViewTransitionInstance, types: string[]): void => {
-    console.log(name, types);
     const { transition, onAnimationStart, ...props } =
       sharedProps.get(name) || commitProps;
 
